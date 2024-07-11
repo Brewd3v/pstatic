@@ -21,7 +21,7 @@ class TestHTMLNode(unittest.TestCase):
 
     def test_repr(self):
         node = HTMLNode()
-        self.assertEquals(
+        self.assertEqual(
             repr(node),
             "HTMLNode(None, None, None, None)"
         )
