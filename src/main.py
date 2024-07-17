@@ -1,11 +1,7 @@
-from htmlnode import LeafNode, ParentNode
-from textnode import TextNode, text_node_to_html_node
-from splitnodes import split_nodes_delimiter
+from splitnodes import extract_markdown_images
 
 
 def main():
-    node = TextNode("This is text with a `code block` word", "text")
-    new_nodes = split_nodes_delimiter([node], "`", "code")
-
-    print(new_nodes)
+    text = "This is text with a ![rick roll](https://i.imgur.com/aKaOqIh.gif) and ![obi wan](https://i.imgur.com/fJRm4Vk.jpeg)"
+    print(extract_markdown_images(text))
 main()
