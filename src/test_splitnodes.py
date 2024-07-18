@@ -4,7 +4,8 @@ from splitnodes import (
     extract_markdown_images,
     extract_markdown_links,
     split_nodes_image,
-    split_nodes_link
+    split_nodes_link,
+    text_to_textnodes
 )
 
 from textnode import (
@@ -158,21 +159,24 @@ class TestInlineMarkdown(unittest.TestCase):
         )
 
     def test_split_nodes_image_with_links(self):
-        node = TextNode("This is text with a link [to boot dev](https://www.boot.dev) and [to youtube](https://www.youtube.com/@bootdotdev)", text_type_text)
+        node = TextNode(
+            "This is text with a link [to boot dev](https://www.boot.dev) and [to youtube](https://www.youtube.com/@bootdotdev)", text_type_text)
         self.assertListEqual([
-            TextNode("This is text with a link [to boot dev](https://www.boot.dev) and [to youtube](https://www.youtube.com/@bootdotdev)", text_type_text)
+            TextNode(
+                "This is text with a link [to boot dev](https://www.boot.dev) and [to youtube](https://www.youtube.com/@bootdotdev)", text_type_text)
         ],
             split_nodes_image([node])
         )
 
     def test_split_nodes_links_with_image(self):
-        node = TextNode("This is text with a link ![to boot dev](https://www.boot.dev) and ![to youtube](https://www.youtube.com/@bootdotdev)", text_type_text)
+        node = TextNode(
+            "This is text with a link ![to boot dev](https://www.boot.dev) and ![to youtube](https://www.youtube.com/@bootdotdev)", text_type_text)
         self.assertListEqual([
-            TextNode("This is text with a link ![to boot dev](https://www.boot.dev) and ![to youtube](https://www.youtube.com/@bootdotdev)", text_type_text)
+            TextNode(
+                "This is text with a link ![to boot dev](https://www.boot.dev) and ![to youtube](https://www.youtube.com/@bootdotdev)", text_type_text)
         ],
             split_nodes_link([node])
         )
-
 
     def test_split_image_single(self):
         node = TextNode(
@@ -182,9 +186,31 @@ class TestInlineMarkdown(unittest.TestCase):
         new_nodes = split_nodes_image([node])
         self.assertListEqual(
             [
-                TextNode("image", text_type_image, "https://www.example.com/image.png"),
+                TextNode("image", text_type_image,
+                         "https://www.example.com/image.png"),
             ],
             new_nodes,
+        )
+
+    def test_split_nodes(self):
+        md = TextNode(
+            "This is **text** with an *italic* word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)", text_type_text)
+        end = [
+            TextNode("This is ", text_type_text),
+            TextNode("text", text_type_bold),
+            TextNode(" with an ", text_type_text),
+            TextNode("italic", text_type_italic),
+            TextNode(" word and a ", text_type_text),
+            TextNode("code block", text_type_code),
+            TextNode(" and an ", text_type_text),
+            TextNode("obi wan image", text_type_image,
+                     "https://i.imgur.com/fJRm4Vk.jpeg"),
+            TextNode(" and a ", text_type_text),
+            TextNode("link", text_type_link, "https://boot.dev"),
+        ]
+        self.assertListEqual(
+            end,
+            text_to_textnodes([md])
         )
 
 

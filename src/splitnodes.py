@@ -1,3 +1,4 @@
+import pprint
 import re
 from textnode import (
     TextNode,
@@ -6,9 +7,8 @@ from textnode import (
     text_type_image,
     text_type_bold,
     text_type_italic,
-    text_type_code,
+    text_type_code
 )
-
 
 def split_nodes_delimiter(old_nodes, delimiter, text_type):
     new_nodes = []
@@ -101,3 +101,12 @@ def split_nodes_image(old_nodes):
                 new_nodes.append(TextNode(text, text_type_text))
 
     return new_nodes
+
+
+def text_to_textnodes(text):
+    bold = split_nodes_delimiter(text, "**", text_type_bold)
+    italics = split_nodes_delimiter(bold, "*", text_type_italic)
+    code = split_nodes_delimiter(italics, "`", text_type_code)
+    images = split_nodes_image(code)
+    links = split_nodes_link(images)
+    return links
