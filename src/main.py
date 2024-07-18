@@ -1,11 +1,20 @@
-from splitnodes import extract_markdown_images, split_nodes_link, split_nodes_image, text_to_textnodes
-from textnode import TextNode, text_type_text
+
+
+import pprint
+from blocknodes import markdown_to_blocks
 
 
 def main():
-    md = TextNode(
-        "This is **text** with an *italic* word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)", text_type_text)
-    print(text_to_textnodes([md]))
+    md = """# This is a heading
+
+    This is a paragraph of text. It has some **bold** and *italic* words inside of it.
+
+    * This is the first list item in a list block
+    * This is a list item
+    * This is another list item
+    """
+    blocks = markdown_to_blocks(md)
+
 
 
 main()
