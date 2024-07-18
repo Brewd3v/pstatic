@@ -1,7 +1,15 @@
-from splitnodes import extract_markdown_images
+from splitnodes import extract_markdown_images, split_nodes_link, split_nodes_image
+from textnode import TextNode, text_type_text
 
 
 def main():
-    text = "This is text with a ![rick roll](https://i.imgur.com/aKaOqIh.gif) and ![obi wan](https://i.imgur.com/fJRm4Vk.jpeg)"
-    print(extract_markdown_images(text))
+    node = TextNode(
+            "![image](https://www.example.com/image.png)",
+            text_type_text,
+        )
+
+    # print(split_nodes_link([node]))
+    print(split_nodes_image([node]))
+
+
 main()
