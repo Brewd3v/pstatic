@@ -1,20 +1,21 @@
 
 
-import pprint
-from blocknodes import markdown_to_blocks
+import re
+from blocknodes import block_to_block_type, markdown_to_blocks
 
 
 def main():
-    md = """# This is a heading
-
-    This is a paragraph of text. It has some **bold** and *italic* words inside of it.
-
-    * This is the first list item in a list block
-    * This is a list item
-    * This is another list item
+    md = """
+    - some list
+    * like this
+    - let's make it three lines
     """
-    blocks = markdown_to_blocks(md)
 
+    blocks = markdown_to_blocks(md)
+    block_type = block_to_block_type(blocks[0])
+
+    print(blocks)
+    print(block_type)
 
 
 main()
