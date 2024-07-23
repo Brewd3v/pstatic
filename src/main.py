@@ -1,21 +1,20 @@
-
-
-import re
-from blocknodes import block_to_block_type, markdown_to_blocks
+from markdown_html import markdown_to_html_node
 
 
 def main():
     md = """
-    - some list
-    * like this
-    - let's make it three lines
+    This is **bolded** paragraph
+
+    This is another paragraph with *italic* text and `code` here
+    This is the same paragraph on a new line
+
+    * This is a list
+    * with items
     """
 
-    blocks = markdown_to_blocks(md)
-    block_type = block_to_block_type(blocks[0])
+    output = markdown_to_html_node(md)
 
-    print(blocks)
-    print(block_type)
+    print(output.to_html())
 
 
 main()
