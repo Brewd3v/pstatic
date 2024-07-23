@@ -193,8 +193,7 @@ class TestInlineMarkdown(unittest.TestCase):
         )
 
     def test_split_nodes(self):
-        md = TextNode(
-            "This is **text** with an *italic* word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)", text_type_text)
+        md = "This is **text** with an *italic* word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
         end = [
             TextNode("This is ", text_type_text),
             TextNode("text", text_type_bold),
@@ -210,7 +209,7 @@ class TestInlineMarkdown(unittest.TestCase):
         ]
         self.assertListEqual(
             end,
-            text_to_textnodes([md])
+            text_to_textnodes(md)
         )
 
 
