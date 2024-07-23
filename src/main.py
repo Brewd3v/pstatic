@@ -1,20 +1,19 @@
-from markdown_html import markdown_to_html_node
+import os
+import shutil
+
+from copystatic import copy_static
+
+output_dir = "public"
+input_dir = "static"
 
 
 def main():
-    md = """
-    This is **bolded** paragraph
+    if os.path.exists("public"):
+        print("[clearing dir]", output_dir)
+        shutil.rmtree(output_dir)
 
-    This is another paragraph with *italic* text and `code` here
-    This is the same paragraph on a new line
+    copy_static(input_dir, output_dir)
 
-    * This is a list
-    * with items
-    """
-
-    output = markdown_to_html_node(md)
-
-    print(output.to_html())
 
 
 main()
