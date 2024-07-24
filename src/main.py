@@ -2,7 +2,7 @@ import os
 import shutil
 
 from copystatic import copy_static
-from generate_page import extract_title, generate_page
+from generate_pages import extract_title, generate_page, generate_pages_recursive
 
 output_dir = "public"
 input_dir = "static"
@@ -15,7 +15,7 @@ def main():
 
     copy_static(input_dir, output_dir)
 
-    generate_page("content/index.md", "template.html", "public/index.html")
+    generate_pages_recursive("content", "template.html", "public")
 
 
 main()

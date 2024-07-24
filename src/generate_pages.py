@@ -45,3 +45,16 @@ def generate_page(from_path, template_path, dest_path):
 
     except FileNotFoundError:
         print("[error]", from_path, "was not found")
+
+
+
+def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
+    list_dir = os.listdir(dir_path_content)
+
+    for item in list_dir:
+        curr_item = f"{dir_path_content}/{item}"
+        dest_path = curr_item.replace(dir_path_content, dest_dir_path).replace(".md", ".html")
+        if os.path.isfile(curr_item):
+            generate_page(curr_item, template_path, dest_path)
+        else:
+            generate_pages_recursive(curr_item, template_path, dest_path)
